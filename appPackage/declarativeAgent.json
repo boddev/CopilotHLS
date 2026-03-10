@@ -1,0 +1,141 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/copilot/declarative-agent/v1.6/schema.json",
+  "version": "v1.6",
+  "name": "CopilotHLS-${{APP_NAME_SUFFIX}}",
+  "description": "Primary life sciences agent for grounded research, protocol, regulatory, and knowledge-routing support.",
+  "instructions": "$[file('instruction.txt')]",
+  "conversation_starters": [
+    {
+      "title": "Literature scan",
+      "text": "Search PubMed for recent papers on CRISPR gene therapy."
+    },
+    {
+      "title": "Trials",
+      "text": "Find active clinical trials for breast cancer immunotherapy."
+    },
+    {
+      "title": "Protocol drafting",
+      "text": "Help me draft a Phase II study protocol outline."
+    },
+    {
+      "title": "QC summary",
+      "text": "Summarize QC metrics from this assay results CSV."
+    },
+    {
+      "title": "Regulatory check",
+      "text": "What are the FDA requirements for a 510(k) submission?"
+    },
+    {
+      "title": "Landscape",
+      "text": "Summarize the regulatory landscape for cell and gene therapies."
+    }
+  ],
+  "behavior_overrides": {
+    "special_instructions": {
+      "discourage_model_knowledge": true
+    }
+  },
+  "disclaimer": {
+    "text": "Research and operational support only. Validate all outputs with approved sources and qualified experts before clinical, regulatory, or patient-impacting use."
+  },
+  "user_overrides": [
+    {
+      "path": "$.capabilities[?(@.name == 'WebSearch')]",
+      "allowed_actions": [
+        "remove"
+      ]
+    },
+    {
+      "path": "$.capabilities[?(@.name == 'OneDriveAndSharePoint')]",
+      "allowed_actions": [
+        "remove"
+      ]
+    },
+    {
+      "path": "$.capabilities[?(@.name == 'GraphConnectors')]",
+      "allowed_actions": [
+        "remove"
+      ]
+    }
+  ],
+  "capabilities": [
+    {
+      "name": "WebSearch",
+      "sites": [
+        {
+          "url": "https://pubmed.ncbi.nlm.nih.gov"
+        },
+        {
+          "url": "https://scholar.google.com"
+        },
+        {
+          "url": "https://clinicaltrials.gov"
+        }
+      ]
+    },
+    {
+      "name": "OneDriveAndSharePoint",
+      "items_by_url": [
+        {
+          "url": "${{PRIMARY_RESEARCH_SITE_URL}}"
+        },
+        {
+          "url": "${{PRIMARY_PROTOCOL_SITE_URL}}"
+        }
+      ]
+    },
+    {
+      "name": "GraphConnectors",
+      "connections": [
+        {
+          "connection_id": "${{PROMOMATS_CONNECTION_ID}}"
+        }
+      ]
+    },
+    {
+      "name": "GraphicArt"
+    },
+    {
+      "name": "CodeInterpreter"
+    },
+    {
+      "name": "People"
+    },
+    {
+      "name": "Email",
+      "shared_mailbox": "${{PRIMARY_EMAIL_SHARED_MAILBOX}}",
+      "folders": [
+        {
+          "folder_id": "${{PRIMARY_EMAIL_FOLDER_ID}}"
+        }
+      ]
+    }
+  ],
+  "actions": [
+    {
+      "id": "pubmedPlugin",
+      "file": "pubmed.plugin.json"
+    },
+    {
+      "id": "clinicalTrialsPlugin",
+      "file": "clinicaltrials.plugin.json"
+    }
+  ],
+  "worker_agents": [
+    {
+      "id": "${{LITREVIEW_TITLE_ID}}"
+    },
+    {
+      "id": "${{BIOANALYSIS_TITLE_ID}}"
+    },
+    {
+      "id": "${{REGCOMPLIANCE_TITLE_ID}}"
+    },
+    {
+      "id": "${{PROTOCOLGEN_TITLE_ID}}"
+    },
+    {
+      "id": "${{SCIKNOWLEDGE_TITLE_ID}}"
+    }
+  ]
+}

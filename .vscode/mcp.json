@@ -1,0 +1,10 @@
+{
+  "servers": {
+    "PubMed": {
+      "url": "https://example.invalid/copilothls/pubmed/mcp"
+    },
+    "ClinicalTrials": {
+      "url": "https://example.invalid/copilothls/clinicaltrials/mcp"
+    }
+  }
+}

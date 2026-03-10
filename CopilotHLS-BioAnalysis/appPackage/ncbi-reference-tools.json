@@ -1,0 +1,56 @@
+{
+  "tools": [
+    {
+      "name": "search_ncbi_gene_records",
+      "description": "Search NCBI gene resources for genes associated with a query and organism.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "query": {
+            "type": "string",
+            "description": "Gene symbol, pathway, or text query."
+          },
+          "organism": {
+            "type": "string",
+            "description": "Optional organism filter such as Homo sapiens."
+          }
+        },
+        "required": [
+          "query"
+        ]
+      }
+    },
+    {
+      "name": "get_ncbi_gene_summary",
+      "description": "Retrieve a structured summary for a gene record from NCBI.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "gene_id": {
+            "type": "string",
+            "description": "NCBI Gene identifier."
+          }
+        },
+        "required": [
+          "gene_id"
+        ]
+      }
+    },
+    {
+      "name": "get_ncbi_protein_summary",
+      "description": "Retrieve a structured summary for a protein accession from NCBI resources.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "accession_id": {
+            "type": "string",
+            "description": "Protein accession or identifier."
+          }
+        },
+        "required": [
+          "accession_id"
+        ]
+      }
+    }
+  ]
+}

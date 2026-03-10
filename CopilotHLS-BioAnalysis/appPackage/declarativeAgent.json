@@ -1,0 +1,88 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/copilot/declarative-agent/v1.6/schema.json",
+  "version": "v1.6",
+  "name": "BioAnalysis-${{APP_NAME_SUFFIX}}",
+  "description": "Bioinformatics reference and lightweight analysis agent for approved assay data and reference lookups.",
+  "instructions": "$[file('instruction.txt')]",
+  "conversation_starters": [
+    {
+      "title": "QC checklist",
+      "text": "What QC checks should I review for this assay results table?"
+    },
+    {
+      "title": "Gene lookup",
+      "text": "Summarize the functional role of TP53 and its major pathways."
+    },
+    {
+      "title": "Protein context",
+      "text": "What is known about this protein accession and its disease relevance?"
+    },
+    {
+      "title": "Exploratory chart",
+      "text": "Create a simple summary chart from this uploaded assay CSV."
+    },
+    {
+      "title": "Pipeline handoff",
+      "text": "What validated pipeline should I use for single-cell RNA-seq QC outside this agent?"
+    },
+    {
+      "title": "Study design",
+      "text": "What controls should I include in a multiplex assay design?"
+    }
+  ],
+  "behavior_overrides": {
+    "special_instructions": {
+      "discourage_model_knowledge": true
+    }
+  },
+  "disclaimer": {
+    "text": "Research and operational support only. Validate all outputs with approved sources and qualified experts before clinical, regulatory, or patient-impacting use."
+  },
+  "user_overrides": [
+    {
+      "path": "$.capabilities[?(@.name == 'WebSearch')]",
+      "allowed_actions": [
+        "remove"
+      ]
+    },
+    {
+      "path": "$.capabilities[?(@.name == 'OneDriveAndSharePoint')]",
+      "allowed_actions": [
+        "remove"
+      ]
+    }
+  ],
+  "capabilities": [
+    {
+      "name": "WebSearch",
+      "sites": [
+        {
+          "url": "https://www.ncbi.nlm.nih.gov"
+        },
+        {
+          "url": "https://www.uniprot.org"
+        },
+        {
+          "url": "https://www.ensembl.org"
+        }
+      ]
+    },
+    {
+      "name": "OneDriveAndSharePoint",
+      "items_by_url": [
+        {
+          "url": "${{BIOANALYSIS_REFERENCE_SITE_URL}}"
+        }
+      ]
+    },
+    {
+      "name": "CodeInterpreter"
+    }
+  ],
+  "actions": [
+    {
+      "id": "ncbiReferencePlugin",
+      "file": "ncbi-reference.plugin.json"
+    }
+  ]
+}

@@ -1,0 +1,120 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/copilot/declarative-agent/v1.6/schema.json",
+  "version": "v1.6",
+  "name": "RegCompliance-${{APP_NAME_SUFFIX}}",
+  "description": "Regulatory and compliance specialist agent for grounded guidance and draft preparation.",
+  "instructions": "$[file('instruction.txt')]",
+  "conversation_starters": [
+    {
+      "title": "IND requirements",
+      "text": "What are the FDA requirements for an IND application?"
+    },
+    {
+      "title": "Gap review",
+      "text": "Identify likely compliance gaps in this draft submission checklist."
+    },
+    {
+      "title": "Safety signals",
+      "text": "Summarize adverse event patterns for this product from openFDA."
+    },
+    {
+      "title": "Trial reporting",
+      "text": "What trial reporting milestones should I watch for this NCT record?"
+    },
+    {
+      "title": "Agency response",
+      "text": "Draft a response outline for this health authority question."
+    },
+    {
+      "title": "Protocol handoff",
+      "text": "What inputs should ProtocolGen use to draft this clinical protocol?"
+    }
+  ],
+  "behavior_overrides": {
+    "special_instructions": {
+      "discourage_model_knowledge": true
+    }
+  },
+  "disclaimer": {
+    "text": "Research and operational support only. Validate all outputs with approved sources and qualified experts before clinical, regulatory, or patient-impacting use."
+  },
+  "user_overrides": [
+    {
+      "path": "$.capabilities[?(@.name == 'WebSearch')]",
+      "allowed_actions": [
+        "remove"
+      ]
+    },
+    {
+      "path": "$.capabilities[?(@.name == 'GraphConnectors')]",
+      "allowed_actions": [
+        "remove"
+      ]
+    },
+    {
+      "path": "$.capabilities[?(@.name == 'Email')]",
+      "allowed_actions": [
+        "remove"
+      ]
+    }
+  ],
+  "capabilities": [
+    {
+      "name": "WebSearch",
+      "sites": [
+        {
+          "url": "https://www.fda.gov"
+        },
+        {
+          "url": "https://www.ema.europa.eu"
+        },
+        {
+          "url": "https://www.ich.org"
+        }
+      ]
+    },
+    {
+      "name": "OneDriveAndSharePoint",
+      "items_by_url": [
+        {
+          "url": "${{REGULATORY_TEMPLATES_SITE_URL}}"
+        }
+      ]
+    },
+    {
+      "name": "GraphConnectors",
+      "connections": [
+        {
+          "connection_id": "${{RIM_CONNECTION_ID}}"
+        }
+      ]
+    },
+    {
+      "name": "CodeInterpreter"
+    },
+    {
+      "name": "Email",
+      "shared_mailbox": "${{REGCOMPLIANCE_EMAIL_SHARED_MAILBOX}}",
+      "folders": [
+        {
+          "folder_id": "${{REGCOMPLIANCE_EMAIL_FOLDER_ID}}"
+        }
+      ]
+    }
+  ],
+  "actions": [
+    {
+      "id": "openFdaPlugin",
+      "file": "openfda.plugin.json"
+    },
+    {
+      "id": "clinicalTrialsPlugin",
+      "file": "clinicaltrials.plugin.json"
+    }
+  ],
+  "worker_agents": [
+    {
+      "id": "${{PROTOCOLGEN_TITLE_ID}}"
+    }
+  ]
+}

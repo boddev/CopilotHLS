@@ -1,0 +1,149 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/copilot/plugin/v2.4/schema.json",
+  "schema_version": "v2.4",
+  "name_for_human": "Semantic Scholar",
+  "namespace": "SemanticScholar",
+  "description_for_human": "Retrieve citation context and paper relationships.",
+  "description_for_model": "Use this plugin when the user needs citation graphs, related-paper context, or author influence information for scientific papers.",
+  "contact_email": "copilothls-support@example.com",
+  "legal_info_url": "https://example.com/copilothls/terms",
+  "privacy_policy_url": "https://example.com/copilothls/privacy",
+  "functions": [
+    {
+      "name": "search_semantic_scholar_papers",
+      "description": "Search Semantic Scholar for papers, related works, and citation context for a scientific topic.",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "query": {
+            "type": "string",
+            "description": "Scientific query, topic, or paper title."
+          },
+          "limit": {
+            "type": "integer",
+            "description": "Maximum number of papers to return."
+          }
+        },
+        "required": [
+          "query"
+        ]
+      },
+      "returns": {
+        "type": "string",
+        "description": "Structured response from the remote MCP server."
+      }
+    },
+    {
+      "name": "get_semantic_scholar_citation_graph",
+      "description": "Retrieve citation relationships and influential references for a paper.",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "paper_id": {
+            "type": "string",
+            "description": "Semantic Scholar paper identifier or DOI."
+          }
+        },
+        "required": [
+          "paper_id"
+        ]
+      },
+      "returns": {
+        "type": "string",
+        "description": "Structured response from the remote MCP server."
+      }
+    },
+    {
+      "name": "get_semantic_scholar_author_profile",
+      "description": "Retrieve author profile details and influential work metadata.",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "author_id": {
+            "type": "string",
+            "description": "Semantic Scholar author identifier."
+          }
+        },
+        "required": [
+          "author_id"
+        ]
+      },
+      "returns": {
+        "type": "string",
+        "description": "Structured response from the remote MCP server."
+      }
+    }
+  ],
+  "runtimes": [
+    {
+      "type": "RemoteMCPServer",
+      "auth": {
+        "type": "None"
+      },
+      "run_for_functions": [
+        "search_semantic_scholar_papers",
+        "get_semantic_scholar_citation_graph",
+        "get_semantic_scholar_author_profile"
+      ],
+      "spec": {
+        "url": "${{SEMANTICSCHOLAR_MCP_URL}}",
+        "x-mcp_tool_description": {
+          "tools": [
+            {
+              "name": "search_semantic_scholar_papers",
+              "description": "Search Semantic Scholar for papers, related works, and citation context for a scientific topic.",
+              "inputSchema": {
+                "type": "object",
+                "properties": {
+                  "query": {
+                    "type": "string",
+                    "description": "Scientific query, topic, or paper title."
+                  },
+                  "limit": {
+                    "type": "integer",
+                    "description": "Maximum number of papers to return."
+                  }
+                },
+                "required": [
+                  "query"
+                ]
+              }
+            },
+            {
+              "name": "get_semantic_scholar_citation_graph",
+              "description": "Retrieve citation relationships and influential references for a paper.",
+              "inputSchema": {
+                "type": "object",
+                "properties": {
+                  "paper_id": {
+                    "type": "string",
+                    "description": "Semantic Scholar paper identifier or DOI."
+                  }
+                },
+                "required": [
+                  "paper_id"
+                ]
+              }
+            },
+            {
+              "name": "get_semantic_scholar_author_profile",
+              "description": "Retrieve author profile details and influential work metadata.",
+              "inputSchema": {
+                "type": "object",
+                "properties": {
+                  "author_id": {
+                    "type": "string",
+                    "description": "Semantic Scholar author identifier."
+                  }
+                },
+                "required": [
+                  "author_id"
+                ]
+              }
+            }
+          ]
+        }
+      }
+    }
+  ]
+}

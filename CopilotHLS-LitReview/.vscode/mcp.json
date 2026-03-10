@@ -1,0 +1,10 @@
+{
+  "servers": {
+    "PubMed": {
+      "url": "https://example.invalid/copilothls/pubmed/mcp"
+    },
+    "SemanticScholar": {
+      "url": "https://example.invalid/copilothls/semantic-scholar/mcp"
+    }
+  }
+}

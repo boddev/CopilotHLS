@@ -1,0 +1,113 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/copilot/plugin/v2.4/schema.json",
+  "schema_version": "v2.4",
+  "name_for_human": "Databricks",
+  "namespace": "Databricks",
+  "description_for_human": "Run governed read-only Databricks analytics actions.",
+  "description_for_model": "Use this plugin for approved Databricks read-only analytics questions, governed dataset descriptions, and summary retrieval from curated views.",
+  "contact_email": "copilothls-support@example.com",
+  "legal_info_url": "https://example.com/copilothls/terms",
+  "privacy_policy_url": "https://example.com/copilothls/privacy",
+  "functions": [
+    {
+      "name": "run_readonly_databricks_query",
+      "description": "Run a read-only Databricks query against approved views and return summarized results.",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "question": {
+            "type": "string",
+            "description": "Natural language analytics question to translate into a governed read-only query."
+          },
+          "catalog": {
+            "type": "string",
+            "description": "Optional approved catalog or domain hint."
+          }
+        },
+        "required": [
+          "question"
+        ]
+      },
+      "returns": {
+        "type": "string",
+        "description": "Structured response from the remote MCP server."
+      }
+    },
+    {
+      "name": "describe_databricks_dataset",
+      "description": "Describe an approved Databricks dataset, view, or semantic layer object.",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "dataset_name": {
+            "type": "string",
+            "description": "Name of the approved dataset or view."
+          }
+        },
+        "required": [
+          "dataset_name"
+        ]
+      },
+      "returns": {
+        "type": "string",
+        "description": "Structured response from the remote MCP server."
+      }
+    }
+  ],
+  "runtimes": [
+    {
+      "type": "RemoteMCPServer",
+      "auth": {
+        "type": "OAuthPluginVault",
+        "reference_id": "${{DATABRICKS_MCP_AUTH_REFERENCE_ID}}"
+      },
+      "run_for_functions": [
+        "run_readonly_databricks_query",
+        "describe_databricks_dataset"
+      ],
+      "spec": {
+        "url": "${{DATABRICKS_MCP_URL}}",
+        "x-mcp_tool_description": {
+          "tools": [
+            {
+              "name": "run_readonly_databricks_query",
+              "description": "Run a read-only Databricks query against approved views and return summarized results.",
+              "inputSchema": {
+                "type": "object",
+                "properties": {
+                  "question": {
+                    "type": "string",
+                    "description": "Natural language analytics question to translate into a governed read-only query."
+                  },
+                  "catalog": {
+                    "type": "string",
+                    "description": "Optional approved catalog or domain hint."
+                  }
+                },
+                "required": [
+                  "question"
+                ]
+              }
+            },
+            {
+              "name": "describe_databricks_dataset",
+              "description": "Describe an approved Databricks dataset, view, or semantic layer object.",
+              "inputSchema": {
+                "type": "object",
+                "properties": {
+                  "dataset_name": {
+                    "type": "string",
+                    "description": "Name of the approved dataset or view."
+                  }
+                },
+                "required": [
+                  "dataset_name"
+                ]
+              }
+            }
+          ]
+        }
+      }
+    }
+  ]
+}

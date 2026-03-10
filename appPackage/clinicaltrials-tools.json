@@ -1,0 +1,68 @@
+{
+  "tools": [
+    {
+      "name": "search_clinical_trials",
+      "description": "Search ClinicalTrials.gov for studies that match a condition, intervention, sponsor, or phase.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "condition": {
+            "type": "string",
+            "description": "Condition, indication, or disease area."
+          },
+          "intervention": {
+            "type": "string",
+            "description": "Optional intervention, modality, or drug name."
+          },
+          "recruitment_status": {
+            "type": "string",
+            "description": "Optional study recruitment status filter."
+          },
+          "max_results": {
+            "type": "integer",
+            "description": "Maximum number of records to return."
+          }
+        },
+        "required": [
+          "condition"
+        ]
+      }
+    },
+    {
+      "name": "get_clinical_trial_record",
+      "description": "Retrieve structured details for a ClinicalTrials.gov study by NCT ID.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "nct_id": {
+            "type": "string",
+            "description": "ClinicalTrials.gov NCT identifier."
+          }
+        },
+        "required": [
+          "nct_id"
+        ]
+      }
+    },
+    {
+      "name": "compare_clinical_trial_records",
+      "description": "Compare multiple ClinicalTrials.gov records and summarize common differences.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "nct_ids": {
+            "type": "array",
+            "description": "List of NCT identifiers to compare.",
+            "items": {
+              "type": "string",
+              "description": "Single NCT identifier."
+            }
+          }
+        },
+        "required": [
+          "nct_ids"
+        ]
+      }
+    }
+  ]
+}

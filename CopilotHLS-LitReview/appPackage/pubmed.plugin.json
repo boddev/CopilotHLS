@@ -1,0 +1,157 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/copilot/plugin/v2.4/schema.json",
+  "schema_version": "v2.4",
+  "name_for_human": "PubMed",
+  "namespace": "PubMed",
+  "description_for_human": "Search biomedical literature in PubMed.",
+  "description_for_model": "Use this plugin for biomedical literature search, abstract retrieval, and PubMed metadata when the user asks for peer-reviewed evidence.",
+  "contact_email": "copilothls-support@example.com",
+  "legal_info_url": "https://example.com/copilothls/terms",
+  "privacy_policy_url": "https://example.com/copilothls/privacy",
+  "functions": [
+    {
+      "name": "search_pubmed_articles",
+      "description": "Search PubMed for biomedical articles relevant to a disease area, modality, or scientific question.",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "query": {
+            "type": "string",
+            "description": "Search phrase or Boolean query to submit to PubMed."
+          },
+          "max_results": {
+            "type": "integer",
+            "description": "Maximum number of articles to return."
+          },
+          "published_after": {
+            "type": "string",
+            "description": "Optional ISO date used to filter recent studies."
+          }
+        },
+        "required": [
+          "query"
+        ]
+      },
+      "returns": {
+        "type": "string",
+        "description": "Structured response from the remote MCP server."
+      }
+    },
+    {
+      "name": "get_pubmed_article_abstract",
+      "description": "Retrieve the abstract for a specific PubMed record by PMID.",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "pmid": {
+            "type": "string",
+            "description": "PubMed identifier for the article."
+          }
+        },
+        "required": [
+          "pmid"
+        ]
+      },
+      "returns": {
+        "type": "string",
+        "description": "Structured response from the remote MCP server."
+      }
+    },
+    {
+      "name": "get_pubmed_article_details",
+      "description": "Retrieve structured metadata for a specific PubMed record, including journal, authors, and DOI when available.",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "pmid": {
+            "type": "string",
+            "description": "PubMed identifier for the article."
+          }
+        },
+        "required": [
+          "pmid"
+        ]
+      },
+      "returns": {
+        "type": "string",
+        "description": "Structured response from the remote MCP server."
+      }
+    }
+  ],
+  "runtimes": [
+    {
+      "type": "RemoteMCPServer",
+      "auth": {
+        "type": "None"
+      },
+      "run_for_functions": [
+        "search_pubmed_articles",
+        "get_pubmed_article_abstract",
+        "get_pubmed_article_details"
+      ],
+      "spec": {
+        "url": "${{PUBMED_MCP_URL}}",
+        "x-mcp_tool_description": {
+          "tools": [
+            {
+              "name": "search_pubmed_articles",
+              "description": "Search PubMed for biomedical articles relevant to a disease area, modality, or scientific question.",
+              "inputSchema": {
+                "type": "object",
+                "properties": {
+                  "query": {
+                    "type": "string",
+                    "description": "Search phrase or Boolean query to submit to PubMed."
+                  },
+                  "max_results": {
+                    "type": "integer",
+                    "description": "Maximum number of articles to return."
+                  },
+                  "published_after": {
+                    "type": "string",
+                    "description": "Optional ISO date used to filter recent studies."
+                  }
+                },
+                "required": [
+                  "query"
+                ]
+              }
+            },
+            {
+              "name": "get_pubmed_article_abstract",
+              "description": "Retrieve the abstract for a specific PubMed record by PMID.",
+              "inputSchema": {
+                "type": "object",
+                "properties": {
+                  "pmid": {
+                    "type": "string",
+                    "description": "PubMed identifier for the article."
+                  }
+                },
+                "required": [
+                  "pmid"
+                ]
+              }
+            },
+            {
+              "name": "get_pubmed_article_details",
+              "description": "Retrieve structured metadata for a specific PubMed record, including journal, authors, and DOI when available.",
+              "inputSchema": {
+                "type": "object",
+                "properties": {
+                  "pmid": {
+                    "type": "string",
+                    "description": "PubMed identifier for the article."
+                  }
+                },
+                "required": [
+                  "pmid"
+                ]
+              }
+            }
+          ]
+        }
+      }
+    }
+  ]
+}

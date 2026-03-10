@@ -1,0 +1,17 @@
+# TeamsFx files
+**/env/.env.*.user
+**/env/.env.local
+.localConfigs
+**/appPackage/build/
+
+# dependencies
+node_modules/
+
+# misc
+.env
+.deployment
+.DS_Store
+
+# Veeva connector credentials (contains client secrets)
+scripts/veeva-connector-credentials.json
+CopilotHLS-Plan.md

@@ -1,0 +1,39 @@
+{
+  "$schema": "https://developer.microsoft.com/en-us/json-schemas/teams/v1.24/MicrosoftTeams.schema.json",
+  "manifestVersion": "1.24",
+  "version": "1.0.0",
+  "id": "${{TEAMS_APP_ID}}",
+  "developer": {
+    "name": "CopilotHLS Team",
+    "websiteUrl": "https://example.com/copilothls",
+    "privacyUrl": "https://example.com/copilothls/privacy",
+    "termsOfUseUrl": "https://example.com/copilothls/terms"
+  },
+  "icons": {
+    "color": "color.png",
+    "outline": "outline.png"
+  },
+  "accentColor": "#2F6FED",
+  "composeExtensions": [],
+  "permissions": [
+    "identity",
+    "messageTeamMembers"
+  ],
+  "copilotAgents": {
+    "declarativeAgents": [
+      {
+        "id": "declarativeAgent",
+        "file": "declarativeAgent.json"
+      }
+    ]
+  },
+  "validDomains": [],
+  "name": {
+    "short": "ProtocolGen-${{APP_NAME_SUFFIX}}",
+    "full": "CopilotHLS Protocol and Documentation Specialist"
+  },
+  "description": {
+    "short": "Protocol and SOP drafting agent grounded in approved enterprise templates.",
+    "full": "Knowledge-grounded protocol and documentation agent for study outlines, SOP structure, consent language, and controlled document drafting support."
+  }
+}

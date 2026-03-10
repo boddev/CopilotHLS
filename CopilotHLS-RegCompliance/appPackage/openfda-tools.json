@@ -1,0 +1,62 @@
+{
+  "tools": [
+    {
+      "name": "search_openfda_labels",
+      "description": "Search openFDA drug labeling data for product indications, warnings, and dosage sections.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "product_name": {
+            "type": "string",
+            "description": "Drug, biologic, or device product name."
+          },
+          "limit": {
+            "type": "integer",
+            "description": "Maximum number of label records to return."
+          }
+        },
+        "required": [
+          "product_name"
+        ]
+      }
+    },
+    {
+      "name": "get_openfda_adverse_events",
+      "description": "Retrieve adverse event summaries and signal trends from openFDA for a product or ingredient.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "product_name": {
+            "type": "string",
+            "description": "Drug, biologic, or device product name."
+          },
+          "limit": {
+            "type": "integer",
+            "description": "Maximum number of event summaries to return."
+          }
+        },
+        "required": [
+          "product_name"
+        ]
+      }
+    },
+    {
+      "name": "get_openfda_recalls",
+      "description": "Retrieve recall or enforcement data from openFDA based on product or classification.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "product_name": {
+            "type": "string",
+            "description": "Optional product name filter."
+          },
+          "classification": {
+            "type": "string",
+            "description": "Optional recall classification filter."
+          }
+        },
+        "required": []
+      }
+    }
+  ]
+}

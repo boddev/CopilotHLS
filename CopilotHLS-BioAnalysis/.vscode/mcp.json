@@ -1,0 +1,7 @@
+{
+  "servers": {
+    "NCBI": {
+      "url": "https://example.invalid/copilothls/ncbi/mcp"
+    }
+  }
+}

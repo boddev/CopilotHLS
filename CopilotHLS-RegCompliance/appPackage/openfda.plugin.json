@@ -1,0 +1,161 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/copilot/plugin/v2.4/schema.json",
+  "schema_version": "v2.4",
+  "name_for_human": "openFDA",
+  "namespace": "OpenFda",
+  "description_for_human": "Search and summarize openFDA drug safety and labeling data.",
+  "description_for_model": "Use this plugin for openFDA label, safety, recall, and enforcement retrieval when the user asks about regulatory signals, labels, or adverse event trends.",
+  "contact_email": "copilothls-support@example.com",
+  "legal_info_url": "https://example.com/copilothls/terms",
+  "privacy_policy_url": "https://example.com/copilothls/privacy",
+  "functions": [
+    {
+      "name": "search_openfda_labels",
+      "description": "Search openFDA drug labeling data for product indications, warnings, and dosage sections.",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "product_name": {
+            "type": "string",
+            "description": "Drug, biologic, or device product name."
+          },
+          "limit": {
+            "type": "integer",
+            "description": "Maximum number of label records to return."
+          }
+        },
+        "required": [
+          "product_name"
+        ]
+      },
+      "returns": {
+        "type": "string",
+        "description": "Structured response from the remote MCP server."
+      }
+    },
+    {
+      "name": "get_openfda_adverse_events",
+      "description": "Retrieve adverse event summaries and signal trends from openFDA for a product or ingredient.",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "product_name": {
+            "type": "string",
+            "description": "Drug, biologic, or device product name."
+          },
+          "limit": {
+            "type": "integer",
+            "description": "Maximum number of event summaries to return."
+          }
+        },
+        "required": [
+          "product_name"
+        ]
+      },
+      "returns": {
+        "type": "string",
+        "description": "Structured response from the remote MCP server."
+      }
+    },
+    {
+      "name": "get_openfda_recalls",
+      "description": "Retrieve recall or enforcement data from openFDA based on product or classification.",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "product_name": {
+            "type": "string",
+            "description": "Optional product name filter."
+          },
+          "classification": {
+            "type": "string",
+            "description": "Optional recall classification filter."
+          }
+        },
+        "required": []
+      },
+      "returns": {
+        "type": "string",
+        "description": "Structured response from the remote MCP server."
+      }
+    }
+  ],
+  "runtimes": [
+    {
+      "type": "RemoteMCPServer",
+      "auth": {
+        "type": "None"
+      },
+      "run_for_functions": [
+        "search_openfda_labels",
+        "get_openfda_adverse_events",
+        "get_openfda_recalls"
+      ],
+      "spec": {
+        "url": "${{OPENFDA_MCP_URL}}",
+        "x-mcp_tool_description": {
+          "tools": [
+            {
+              "name": "search_openfda_labels",
+              "description": "Search openFDA drug labeling data for product indications, warnings, and dosage sections.",
+              "inputSchema": {
+                "type": "object",
+                "properties": {
+                  "product_name": {
+                    "type": "string",
+                    "description": "Drug, biologic, or device product name."
+                  },
+                  "limit": {
+                    "type": "integer",
+                    "description": "Maximum number of label records to return."
+                  }
+                },
+                "required": [
+                  "product_name"
+                ]
+              }
+            },
+            {
+              "name": "get_openfda_adverse_events",
+              "description": "Retrieve adverse event summaries and signal trends from openFDA for a product or ingredient.",
+              "inputSchema": {
+                "type": "object",
+                "properties": {
+                  "product_name": {
+                    "type": "string",
+                    "description": "Drug, biologic, or device product name."
+                  },
+                  "limit": {
+                    "type": "integer",
+                    "description": "Maximum number of event summaries to return."
+                  }
+                },
+                "required": [
+                  "product_name"
+                ]
+              }
+            },
+            {
+              "name": "get_openfda_recalls",
+              "description": "Retrieve recall or enforcement data from openFDA based on product or classification.",
+              "inputSchema": {
+                "type": "object",
+                "properties": {
+                  "product_name": {
+                    "type": "string",
+                    "description": "Optional product name filter."
+                  },
+                  "classification": {
+                    "type": "string",
+                    "description": "Optional recall classification filter."
+                  }
+                },
+                "required": []
+              }
+            }
+          ]
+        }
+      }
+    }
+  ]
+}

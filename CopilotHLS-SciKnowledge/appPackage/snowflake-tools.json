@@ -1,0 +1,40 @@
+{
+  "tools": [
+    {
+      "name": "run_readonly_snowflake_query",
+      "description": "Run a read-only Snowflake query against approved schemas and return summarized results.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "question": {
+            "type": "string",
+            "description": "Natural language analytics question to translate into a governed read-only query."
+          },
+          "warehouse": {
+            "type": "string",
+            "description": "Optional warehouse or domain hint."
+          }
+        },
+        "required": [
+          "question"
+        ]
+      }
+    },
+    {
+      "name": "describe_snowflake_dataset",
+      "description": "Describe an approved Snowflake table, view, or semantic object.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "dataset_name": {
+            "type": "string",
+            "description": "Name of the approved dataset or view."
+          }
+        },
+        "required": [
+          "dataset_name"
+        ]
+      }
+    }
+  ]
+}

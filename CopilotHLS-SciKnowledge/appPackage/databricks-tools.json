@@ -1,0 +1,40 @@
+{
+  "tools": [
+    {
+      "name": "run_readonly_databricks_query",
+      "description": "Run a read-only Databricks query against approved views and return summarized results.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "question": {
+            "type": "string",
+            "description": "Natural language analytics question to translate into a governed read-only query."
+          },
+          "catalog": {
+            "type": "string",
+            "description": "Optional approved catalog or domain hint."
+          }
+        },
+        "required": [
+          "question"
+        ]
+      }
+    },
+    {
+      "name": "describe_databricks_dataset",
+      "description": "Describe an approved Databricks dataset, view, or semantic layer object.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "dataset_name": {
+            "type": "string",
+            "description": "Name of the approved dataset or view."
+          }
+        },
+        "required": [
+          "dataset_name"
+        ]
+      }
+    }
+  ]
+}

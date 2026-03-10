@@ -1,0 +1,149 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/copilot/plugin/v2.4/schema.json",
+  "schema_version": "v2.4",
+  "name_for_human": "NCBI Reference",
+  "namespace": "NcbiReference",
+  "description_for_human": "Retrieve NCBI gene and protein reference details.",
+  "description_for_model": "Use this plugin for gene and protein lookups, NCBI summaries, and small-scale reference retrieval for bioinformatics support tasks.",
+  "contact_email": "copilothls-support@example.com",
+  "legal_info_url": "https://example.com/copilothls/terms",
+  "privacy_policy_url": "https://example.com/copilothls/privacy",
+  "functions": [
+    {
+      "name": "search_ncbi_gene_records",
+      "description": "Search NCBI gene resources for genes associated with a query and organism.",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "query": {
+            "type": "string",
+            "description": "Gene symbol, pathway, or text query."
+          },
+          "organism": {
+            "type": "string",
+            "description": "Optional organism filter such as Homo sapiens."
+          }
+        },
+        "required": [
+          "query"
+        ]
+      },
+      "returns": {
+        "type": "string",
+        "description": "Structured response from the remote MCP server."
+      }
+    },
+    {
+      "name": "get_ncbi_gene_summary",
+      "description": "Retrieve a structured summary for a gene record from NCBI.",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "gene_id": {
+            "type": "string",
+            "description": "NCBI Gene identifier."
+          }
+        },
+        "required": [
+          "gene_id"
+        ]
+      },
+      "returns": {
+        "type": "string",
+        "description": "Structured response from the remote MCP server."
+      }
+    },
+    {
+      "name": "get_ncbi_protein_summary",
+      "description": "Retrieve a structured summary for a protein accession from NCBI resources.",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "accession_id": {
+            "type": "string",
+            "description": "Protein accession or identifier."
+          }
+        },
+        "required": [
+          "accession_id"
+        ]
+      },
+      "returns": {
+        "type": "string",
+        "description": "Structured response from the remote MCP server."
+      }
+    }
+  ],
+  "runtimes": [
+    {
+      "type": "RemoteMCPServer",
+      "auth": {
+        "type": "None"
+      },
+      "run_for_functions": [
+        "search_ncbi_gene_records",
+        "get_ncbi_gene_summary",
+        "get_ncbi_protein_summary"
+      ],
+      "spec": {
+        "url": "${{NCBI_MCP_URL}}",
+        "x-mcp_tool_description": {
+          "tools": [
+            {
+              "name": "search_ncbi_gene_records",
+              "description": "Search NCBI gene resources for genes associated with a query and organism.",
+              "inputSchema": {
+                "type": "object",
+                "properties": {
+                  "query": {
+                    "type": "string",
+                    "description": "Gene symbol, pathway, or text query."
+                  },
+                  "organism": {
+                    "type": "string",
+                    "description": "Optional organism filter such as Homo sapiens."
+                  }
+                },
+                "required": [
+                  "query"
+                ]
+              }
+            },
+            {
+              "name": "get_ncbi_gene_summary",
+              "description": "Retrieve a structured summary for a gene record from NCBI.",
+              "inputSchema": {
+                "type": "object",
+                "properties": {
+                  "gene_id": {
+                    "type": "string",
+                    "description": "NCBI Gene identifier."
+                  }
+                },
+                "required": [
+                  "gene_id"
+                ]
+              }
+            },
+            {
+              "name": "get_ncbi_protein_summary",
+              "description": "Retrieve a structured summary for a protein accession from NCBI resources.",
+              "inputSchema": {
+                "type": "object",
+                "properties": {
+                  "accession_id": {
+                    "type": "string",
+                    "description": "Protein accession or identifier."
+                  }
+                },
+                "required": [
+                  "accession_id"
+                ]
+              }
+            }
+          ]
+        }
+      }
+    }
+  ]
+}

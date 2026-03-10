@@ -1,0 +1,82 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/copilot/declarative-agent/v1.6/schema.json",
+  "version": "v1.6",
+  "name": "ProtocolGen-${{APP_NAME_SUFFIX}}",
+  "description": "Protocol and documentation specialist agent grounded in approved templates and connector content.",
+  "instructions": "$[file('instruction.txt')]",
+  "conversation_starters": [
+    {
+      "title": "Protocol outline",
+      "text": "Draft a Phase II protocol outline for this diabetes study concept."
+    },
+    {
+      "title": "SOP skeleton",
+      "text": "Create an SOP skeleton for investigational product handling."
+    },
+    {
+      "title": "Consent gaps",
+      "text": "What information is missing from this consent form outline?"
+    },
+    {
+      "title": "Endpoint wording",
+      "text": "Draft endpoint language using our approved protocol template style."
+    },
+    {
+      "title": "Review mailbox",
+      "text": "Summarize recent protocol review feedback from the shared mailbox."
+    },
+    {
+      "title": "Controlled docs",
+      "text": "Find the current SOP for deviation management and summarize it."
+    }
+  ],
+  "behavior_overrides": {
+    "special_instructions": {
+      "discourage_model_knowledge": true
+    }
+  },
+  "disclaimer": {
+    "text": "Research and operational support only. Validate all outputs with approved sources and qualified experts before clinical, regulatory, or patient-impacting use."
+  },
+  "user_overrides": [
+    {
+      "path": "$.capabilities[?(@.name == 'OneDriveAndSharePoint')]",
+      "allowed_actions": [
+        "remove"
+      ]
+    },
+    {
+      "path": "$.capabilities[?(@.name == 'GraphConnectors')]",
+      "allowed_actions": [
+        "remove"
+      ]
+    }
+  ],
+  "capabilities": [
+    {
+      "name": "OneDriveAndSharePoint",
+      "items_by_url": [
+        {
+          "url": "${{PROTOCOL_LIBRARY_SITE_URL}}"
+        }
+      ]
+    },
+    {
+      "name": "GraphConnectors",
+      "connections": [
+        {
+          "connection_id": "${{QUALITYDOCS_CONNECTION_ID}}"
+        }
+      ]
+    },
+    {
+      "name": "Email",
+      "shared_mailbox": "${{PROTOCOL_EMAIL_SHARED_MAILBOX}}",
+      "folders": [
+        {
+          "folder_id": "${{PROTOCOL_EMAIL_FOLDER_ID}}"
+        }
+      ]
+    }
+  ]
+}

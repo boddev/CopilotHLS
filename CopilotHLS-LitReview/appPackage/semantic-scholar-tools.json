@@ -1,0 +1,56 @@
+{
+  "tools": [
+    {
+      "name": "search_semantic_scholar_papers",
+      "description": "Search Semantic Scholar for papers, related works, and citation context for a scientific topic.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "query": {
+            "type": "string",
+            "description": "Scientific query, topic, or paper title."
+          },
+          "limit": {
+            "type": "integer",
+            "description": "Maximum number of papers to return."
+          }
+        },
+        "required": [
+          "query"
+        ]
+      }
+    },
+    {
+      "name": "get_semantic_scholar_citation_graph",
+      "description": "Retrieve citation relationships and influential references for a paper.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "paper_id": {
+            "type": "string",
+            "description": "Semantic Scholar paper identifier or DOI."
+          }
+        },
+        "required": [
+          "paper_id"
+        ]
+      }
+    },
+    {
+      "name": "get_semantic_scholar_author_profile",
+      "description": "Retrieve author profile details and influential work metadata.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "author_id": {
+            "type": "string",
+            "description": "Semantic Scholar author identifier."
+          }
+        },
+        "required": [
+          "author_id"
+        ]
+      }
+    }
+  ]
+}

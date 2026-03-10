@@ -1,0 +1,10 @@
+{
+  "servers": {
+    "openFDA": {
+      "url": "https://example.invalid/copilothls/openfda/mcp"
+    },
+    "ClinicalTrials": {
+      "url": "https://example.invalid/copilothls/clinicaltrials/mcp"
+    }
+  }
+}

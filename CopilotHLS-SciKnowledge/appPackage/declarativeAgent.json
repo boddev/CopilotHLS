@@ -1,0 +1,109 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/copilot/declarative-agent/v1.6/schema.json",
+  "version": "v1.6",
+  "name": "SciKnowledge-${{APP_NAME_SUFFIX}}",
+  "description": "Enterprise knowledge integration agent for governed scientific and operational data synthesis.",
+  "instructions": "$[file('instruction.txt')]",
+  "conversation_starters": [
+    {
+      "title": "Portfolio trends",
+      "text": "What research trends are emerging across our approved program dashboards?"
+    },
+    {
+      "title": "Dataset summary",
+      "text": "Describe the fields and intended use of this approved research dataset."
+    },
+    {
+      "title": "Cross-program view",
+      "text": "Summarize biomarker activity across our oncology programs."
+    },
+    {
+      "title": "Warehouse query",
+      "text": "Run a read-only query to summarize trial enrollment by phase."
+    },
+    {
+      "title": "Connector synthesis",
+      "text": "Combine our approved connector content with public research context for this topic."
+    },
+    {
+      "title": "Data dictionary",
+      "text": "Explain the approved definitions behind this clinical operations metric."
+    }
+  ],
+  "behavior_overrides": {
+    "special_instructions": {
+      "discourage_model_knowledge": true
+    }
+  },
+  "disclaimer": {
+    "text": "Research and operational support only. Validate all outputs with approved sources and qualified experts before clinical, regulatory, or patient-impacting use."
+  },
+  "user_overrides": [
+    {
+      "path": "$.capabilities[?(@.name == 'WebSearch')]",
+      "allowed_actions": [
+        "remove"
+      ]
+    },
+    {
+      "path": "$.capabilities[?(@.name == 'OneDriveAndSharePoint')]",
+      "allowed_actions": [
+        "remove"
+      ]
+    },
+    {
+      "path": "$.capabilities[?(@.name == 'GraphConnectors')]",
+      "allowed_actions": [
+        "remove"
+      ]
+    }
+  ],
+  "capabilities": [
+    {
+      "name": "WebSearch",
+      "sites": [
+        {
+          "url": "https://learn.microsoft.com"
+        },
+        {
+          "url": "https://pubmed.ncbi.nlm.nih.gov"
+        }
+      ]
+    },
+    {
+      "name": "OneDriveAndSharePoint",
+      "items_by_url": [
+        {
+          "url": "${{SCIKNOWLEDGE_SITE_URL}}"
+        }
+      ]
+    },
+    {
+      "name": "GraphConnectors",
+      "connections": [
+        {
+          "connection_id": "${{PROMOMATS_CONNECTION_ID}}"
+        },
+        {
+          "connection_id": "${{QUALITYDOCS_CONNECTION_ID}}"
+        },
+        {
+          "connection_id": "${{RIM_CONNECTION_ID}}"
+        }
+      ]
+    },
+    {
+      "name": "CodeInterpreter"
+    }
+  ],
+  "actions": [
+    {
+      "id": "databricksPlugin",
+      "file": "databricks.plugin.json"
+    },
+    {
+      "id": "snowflakePlugin",
+      "file": "snowflake.plugin.json"
+    }
+  ]
+}

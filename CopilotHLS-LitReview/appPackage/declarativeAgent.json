@@ -1,0 +1,95 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/copilot/declarative-agent/v1.6/schema.json",
+  "version": "v1.6",
+  "name": "LitReview-${{APP_NAME_SUFFIX}}",
+  "description": "Specialist literature review agent for grounded biomedical evidence synthesis.",
+  "instructions": "$[file('instruction.txt')]",
+  "conversation_starters": [
+    {
+      "title": "Systematic review",
+      "text": "Help me scope a PRISMA-style review for CRISPR in sickle cell disease."
+    },
+    {
+      "title": "Evidence map",
+      "text": "Summarize recent CAR-T safety studies in autoimmune disease."
+    },
+    {
+      "title": "Gap analysis",
+      "text": "What evidence gaps exist for oral GLP-1 therapies in obesity?"
+    },
+    {
+      "title": "Citation graph",
+      "text": "Show the influential citation trail for this oncology paper."
+    },
+    {
+      "title": "Search strategy",
+      "text": "Draft a PubMed search strategy for breast cancer immunotherapy biomarkers."
+    },
+    {
+      "title": "Bibliometrics",
+      "text": "Create a publication trend summary from this exported citation table."
+    }
+  ],
+  "behavior_overrides": {
+    "special_instructions": {
+      "discourage_model_knowledge": true
+    }
+  },
+  "disclaimer": {
+    "text": "Research and operational support only. Validate all outputs with approved sources and qualified experts before clinical, regulatory, or patient-impacting use."
+  },
+  "user_overrides": [
+    {
+      "path": "$.capabilities[?(@.name == 'WebSearch')]",
+      "allowed_actions": [
+        "remove"
+      ]
+    },
+    {
+      "path": "$.capabilities[?(@.name == 'OneDriveAndSharePoint')]",
+      "allowed_actions": [
+        "remove"
+      ]
+    }
+  ],
+  "capabilities": [
+    {
+      "name": "WebSearch",
+      "sites": [
+        {
+          "url": "https://pubmed.ncbi.nlm.nih.gov"
+        },
+        {
+          "url": "https://scholar.google.com"
+        },
+        {
+          "url": "https://biorxiv.org"
+        },
+        {
+          "url": "https://medrxiv.org"
+        }
+      ]
+    },
+    {
+      "name": "OneDriveAndSharePoint",
+      "items_by_url": [
+        {
+          "url": "${{LITREVIEW_LIBRARY_SITE_URL}}"
+        }
+      ]
+    },
+    {
+      "name": "CodeInterpreter"
+    }
+  ],
+  "actions": [
+    {
+      "id": "pubmedPlugin",
+      "file": "pubmed.plugin.json"
+    },
+    {
+      "id": "semanticScholarPlugin",
+      "file": "semantic-scholar.plugin.json"
+    }
+  ]
+}

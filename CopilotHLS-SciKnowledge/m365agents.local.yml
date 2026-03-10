@@ -1,0 +1,31 @@
+# yaml-language-server: $schema=https://aka.ms/m365-agents-toolkits/v1.10/yaml.schema.json
+version: v1.10
+
+environmentFolderPath: ./env
+
+provision:
+  - uses: teamsApp/create
+    with:
+      name: SciKnowledge-${{APP_NAME_SUFFIX}}
+    writeToEnvironmentFile:
+      teamsAppId: TEAMS_APP_ID
+
+  - uses: teamsApp/zipAppPackage
+    with:
+      manifestPath: ./appPackage/manifest.json
+      outputZipPath: ./appPackage/build/appPackage.${{TEAMSFX_ENV}}.zip
+      outputFolder: ./appPackage/build
+
+  - uses: teamsApp/update
+    with:
+      appPackagePath: ./appPackage/build/appPackage.${{TEAMSFX_ENV}}.zip
+
+  - uses: teamsApp/extendToM365
+    with:
+      appPackagePath: ./appPackage/build/appPackage.${{TEAMSFX_ENV}}.zip
+      scope: ${{AGENT_SCOPE}}
+    writeToEnvironmentFile:
+      titleId: M365_TITLE_ID
+      appId: M365_APP_ID
+      shareLink: SHARE_LINK
+projectId: a920d9df-ab4e-4830-8dc3-e68f0a6bc118

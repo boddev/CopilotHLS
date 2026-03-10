@@ -1,0 +1,10 @@
+{
+  "servers": {
+    "Databricks": {
+      "url": "https://example.invalid/copilothls/databricks/mcp"
+    },
+    "Snowflake": {
+      "url": "https://example.invalid/copilothls/snowflake/mcp"
+    }
+  }
+}

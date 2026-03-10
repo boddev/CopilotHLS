@@ -1,0 +1,173 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/copilot/plugin/v2.4/schema.json",
+  "schema_version": "v2.4",
+  "name_for_human": "Clinical Trials",
+  "namespace": "ClinicalTrials",
+  "description_for_human": "Search and compare ClinicalTrials.gov records.",
+  "description_for_model": "Use this plugin to search ClinicalTrials.gov, retrieve study records, and compare multiple trials when the user asks about study status, inclusion criteria, or trial design.",
+  "contact_email": "copilothls-support@example.com",
+  "legal_info_url": "https://example.com/copilothls/terms",
+  "privacy_policy_url": "https://example.com/copilothls/privacy",
+  "functions": [
+    {
+      "name": "search_clinical_trials",
+      "description": "Search ClinicalTrials.gov for studies that match a condition, intervention, sponsor, or phase.",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "condition": {
+            "type": "string",
+            "description": "Condition, indication, or disease area."
+          },
+          "intervention": {
+            "type": "string",
+            "description": "Optional intervention, modality, or drug name."
+          },
+          "recruitment_status": {
+            "type": "string",
+            "description": "Optional study recruitment status filter."
+          },
+          "max_results": {
+            "type": "integer",
+            "description": "Maximum number of records to return."
+          }
+        },
+        "required": [
+          "condition"
+        ]
+      },
+      "returns": {
+        "type": "string",
+        "description": "Structured response from the remote MCP server."
+      }
+    },
+    {
+      "name": "get_clinical_trial_record",
+      "description": "Retrieve structured details for a ClinicalTrials.gov study by NCT ID.",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "nct_id": {
+            "type": "string",
+            "description": "ClinicalTrials.gov NCT identifier."
+          }
+        },
+        "required": [
+          "nct_id"
+        ]
+      },
+      "returns": {
+        "type": "string",
+        "description": "Structured response from the remote MCP server."
+      }
+    },
+    {
+      "name": "compare_clinical_trial_records",
+      "description": "Compare multiple ClinicalTrials.gov records and summarize common differences.",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "nct_ids": {
+            "type": "array",
+            "description": "List of NCT identifiers to compare.",
+            "items": {
+              "type": "string",
+              "description": "Single NCT identifier."
+            }
+          }
+        },
+        "required": [
+          "nct_ids"
+        ]
+      },
+      "returns": {
+        "type": "string",
+        "description": "Structured response from the remote MCP server."
+      }
+    }
+  ],
+  "runtimes": [
+    {
+      "type": "RemoteMCPServer",
+      "auth": {
+        "type": "None"
+      },
+      "run_for_functions": [
+        "search_clinical_trials",
+        "get_clinical_trial_record",
+        "compare_clinical_trial_records"
+      ],
+      "spec": {
+        "url": "${{CLINICALTRIALS_MCP_URL}}",
+        "x-mcp_tool_description": {
+          "tools": [
+            {
+              "name": "search_clinical_trials",
+              "description": "Search ClinicalTrials.gov for studies that match a condition, intervention, sponsor, or phase.",
+              "inputSchema": {
+                "type": "object",
+                "properties": {
+                  "condition": {
+                    "type": "string",
+                    "description": "Condition, indication, or disease area."
+                  },
+                  "intervention": {
+                    "type": "string",
+                    "description": "Optional intervention, modality, or drug name."
+                  },
+                  "recruitment_status": {
+                    "type": "string",
+                    "description": "Optional study recruitment status filter."
+                  },
+                  "max_results": {
+                    "type": "integer",
+                    "description": "Maximum number of records to return."
+                  }
+                },
+                "required": [
+                  "condition"
+                ]
+              }
+            },
+            {
+              "name": "get_clinical_trial_record",
+              "description": "Retrieve structured details for a ClinicalTrials.gov study by NCT ID.",
+              "inputSchema": {
+                "type": "object",
+                "properties": {
+                  "nct_id": {
+                    "type": "string",
+                    "description": "ClinicalTrials.gov NCT identifier."
+                  }
+                },
+                "required": [
+                  "nct_id"
+                ]
+              }
+            },
+            {
+              "name": "compare_clinical_trial_records",
+              "description": "Compare multiple ClinicalTrials.gov records and summarize common differences.",
+              "inputSchema": {
+                "type": "object",
+                "properties": {
+                  "nct_ids": {
+                    "type": "array",
+                    "description": "List of NCT identifiers to compare.",
+                    "items": {
+                      "type": "string",
+                      "description": "Single NCT identifier."
+                    }
+                  }
+                },
+                "required": [
+                  "nct_ids"
+                ]
+              }
+            }
+          ]
+        }
+      }
+    }
+  ]
+}
