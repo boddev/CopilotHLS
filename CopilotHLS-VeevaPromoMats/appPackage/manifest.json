@@ -1,0 +1,39 @@
+{
+  "$schema": "https://developer.microsoft.com/en-us/json-schemas/teams/v1.24/MicrosoftTeams.schema.json",
+  "manifestVersion": "1.24",
+  "version": "1.0.0",
+  "id": "${{TEAMS_APP_ID}}",
+  "developer": {
+    "name": "CopilotHLS Team",
+    "websiteUrl": "https://example.com/copilothls",
+    "privacyUrl": "https://example.com/copilothls/privacy",
+    "termsOfUseUrl": "https://example.com/copilothls/terms"
+  },
+  "icons": {
+    "color": "color.png",
+    "outline": "outline.png"
+  },
+  "accentColor": "#2F6FED",
+  "composeExtensions": [],
+  "permissions": [
+    "identity",
+    "messageTeamMembers"
+  ],
+  "copilotAgents": {
+    "declarativeAgents": [
+      {
+        "id": "declarativeAgent",
+        "file": "declarativeAgent.json"
+      }
+    ]
+  },
+  "validDomains": [],
+  "name": {
+    "short": "VeevaPromoMats-${{APP_NAME_SUFFIX}}",
+    "full": "CopilotHLS Veeva PromoMats Specialist"
+  },
+  "description": {
+    "short": "Veeva PromoMats agent for promotional materials compliance and review.",
+    "full": "Specialist agent for searching, reviewing, and analyzing promotional materials stored in the Veeva PromoMats vault via the Microsoft Graph Connector."
+  }
+}

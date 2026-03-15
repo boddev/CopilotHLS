@@ -1,0 +1,50 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/copilot/declarative-agent/v1.6/schema.json",
+  "version": "v1.6",
+  "name": "VeevaRIM-${{APP_NAME_SUFFIX}}",
+  "description": "Veeva Vault RIM specialist agent for regulatory information management, submission tracking, and health authority correspondence.",
+  "instructions": "$[file('instruction.txt')]",
+  "behavior_overrides": {
+    "special_instructions": {
+      "discourage_model_knowledge": true
+    }
+  },
+  "disclaimer": {
+    "text": "Outputs are for regulatory operations support only. All regulatory decisions and submissions require qualified regulatory affairs professional review."
+  },
+  "capabilities": [
+    {
+      "name": "GraphConnectors",
+      "connections": [
+        {
+          "connection_id": "${{RIM_CONNECTION_ID}}"
+        }
+      ]
+    },
+    {
+      "name": "OneDriveAndSharePoint",
+      "items_by_url": [
+        {
+          "url": "${{RIM_SITE_URL}}"
+        }
+      ]
+    },
+    {
+      "name": "WebSearch",
+      "sites": [
+        {
+          "url": "https://www.fda.gov"
+        },
+        {
+          "url": "https://www.ema.europa.eu"
+        },
+        {
+          "url": "https://www.ich.org"
+        }
+      ]
+    },
+    {
+      "name": "CodeInterpreter"
+    }
+  ]
+}

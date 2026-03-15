@@ -136,6 +136,15 @@
     },
     {
       "id": "${{SCIKNOWLEDGE_TITLE_ID}}"
+    },
+    {
+      "id": "${{VEEVA_PROMOMATS_TITLE_ID}}"
+    },
+    {
+      "id": "${{VEEVA_QUALITYDOCS_TITLE_ID}}"
+    },
+    {
+      "id": "${{VEEVA_RIM_TITLE_ID}}"
     }
   ]
 }

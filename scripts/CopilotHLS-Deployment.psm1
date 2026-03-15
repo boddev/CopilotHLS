@@ -27,6 +27,7 @@ function Get-CopilotHlsProjectDefinitions {
             RootWorkerTitleEnvKey = 'LITREVIEW_TITLE_ID'
             InstallOrder         = 10
             UninstallOrder       = 20
+            Category             = 'core'
         },
         [pscustomobject]@{
             Name                 = 'CopilotHLS-BioAnalysis'
@@ -34,6 +35,7 @@ function Get-CopilotHlsProjectDefinitions {
             RootWorkerTitleEnvKey = 'BIOANALYSIS_TITLE_ID'
             InstallOrder         = 20
             UninstallOrder       = 30
+            Category             = 'core'
         },
         [pscustomobject]@{
             Name                 = 'CopilotHLS-RegCompliance'
@@ -41,6 +43,7 @@ function Get-CopilotHlsProjectDefinitions {
             RootWorkerTitleEnvKey = 'REGCOMPLIANCE_TITLE_ID'
             InstallOrder         = 30
             UninstallOrder       = 40
+            Category             = 'core'
         },
         [pscustomobject]@{
             Name                 = 'CopilotHLS-ProtocolGen'
@@ -48,6 +51,7 @@ function Get-CopilotHlsProjectDefinitions {
             RootWorkerTitleEnvKey = 'PROTOCOLGEN_TITLE_ID'
             InstallOrder         = 40
             UninstallOrder       = 50
+            Category             = 'core'
         },
         [pscustomobject]@{
             Name                 = 'CopilotHLS-SciKnowledge'
@@ -55,6 +59,31 @@ function Get-CopilotHlsProjectDefinitions {
             RootWorkerTitleEnvKey = 'SCIKNOWLEDGE_TITLE_ID'
             InstallOrder         = 50
             UninstallOrder       = 60
+            Category             = 'core'
+        },
+        [pscustomobject]@{
+            Name                 = 'CopilotHLS-VeevaPromoMats'
+            RootPath             = Join-Path $root 'CopilotHLS-VeevaPromoMats'
+            RootWorkerTitleEnvKey = 'VEEVA_PROMOMATS_TITLE_ID'
+            InstallOrder         = 55
+            UninstallOrder       = 55
+            Category             = 'veeva'
+        },
+        [pscustomobject]@{
+            Name                 = 'CopilotHLS-VeevaQualityDocs'
+            RootPath             = Join-Path $root 'CopilotHLS-VeevaQualityDocs'
+            RootWorkerTitleEnvKey = 'VEEVA_QUALITYDOCS_TITLE_ID'
+            InstallOrder         = 60
+            UninstallOrder       = 60
+            Category             = 'veeva'
+        },
+        [pscustomobject]@{
+            Name                 = 'CopilotHLS-VeevaRIM'
+            RootPath             = Join-Path $root 'CopilotHLS-VeevaRIM'
+            RootWorkerTitleEnvKey = 'VEEVA_RIM_TITLE_ID'
+            InstallOrder         = 65
+            UninstallOrder       = 65
+            Category             = 'veeva'
         },
         [pscustomobject]@{
             Name                 = 'CopilotHLS'
@@ -62,6 +91,7 @@ function Get-CopilotHlsProjectDefinitions {
             RootWorkerTitleEnvKey = $null
             InstallOrder         = 90
             UninstallOrder       = 10
+            Category             = 'orchestrator'
         }
     )
 }

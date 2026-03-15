@@ -1,0 +1,47 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/copilot/declarative-agent/v1.6/schema.json",
+  "version": "v1.6",
+  "name": "VeevaQualityDocs-${{APP_NAME_SUFFIX}}",
+  "description": "Veeva QualityDocs specialist agent for quality document management, SOPs, CAPAs, and batch record analysis.",
+  "instructions": "$[file('instruction.txt')]",
+  "behavior_overrides": {
+    "special_instructions": {
+      "discourage_model_knowledge": true
+    }
+  },
+  "disclaimer": {
+    "text": "Outputs are for operational support only. All quality decisions require QA review and approval per applicable GxP regulations."
+  },
+  "capabilities": [
+    {
+      "name": "GraphConnectors",
+      "connections": [
+        {
+          "connection_id": "${{QUALITYDOCS_CONNECTION_ID}}"
+        }
+      ]
+    },
+    {
+      "name": "OneDriveAndSharePoint",
+      "items_by_url": [
+        {
+          "url": "${{QUALITYDOCS_SITE_URL}}"
+        }
+      ]
+    },
+    {
+      "name": "WebSearch",
+      "sites": [
+        {
+          "url": "https://www.fda.gov"
+        },
+        {
+          "url": "https://www.ich.org"
+        }
+      ]
+    },
+    {
+      "name": "CodeInterpreter"
+    }
+  ]
+}

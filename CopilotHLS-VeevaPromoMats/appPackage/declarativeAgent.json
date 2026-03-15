@@ -1,0 +1,47 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/copilot/declarative-agent/v1.6/schema.json",
+  "version": "v1.6",
+  "name": "VeevaPromoMats-${{APP_NAME_SUFFIX}}",
+  "description": "Veeva PromoMats specialist agent for promotional materials compliance, marketing review, and content lifecycle management.",
+  "instructions": "$[file('instruction.txt')]",
+  "behavior_overrides": {
+    "special_instructions": {
+      "discourage_model_knowledge": true
+    }
+  },
+  "disclaimer": {
+    "text": "Outputs are for operational and review support only. All promotional content decisions require Medical/Legal/Regulatory (MLR) committee approval."
+  },
+  "capabilities": [
+    {
+      "name": "GraphConnectors",
+      "connections": [
+        {
+          "connection_id": "${{PROMOMATS_CONNECTION_ID}}"
+        }
+      ]
+    },
+    {
+      "name": "OneDriveAndSharePoint",
+      "items_by_url": [
+        {
+          "url": "${{PROMOMATS_SITE_URL}}"
+        }
+      ]
+    },
+    {
+      "name": "WebSearch",
+      "sites": [
+        {
+          "url": "https://www.fda.gov"
+        },
+        {
+          "url": "https://www.ema.europa.eu"
+        }
+      ]
+    },
+    {
+      "name": "CodeInterpreter"
+    }
+  ]
+}
